@@ -191,23 +191,14 @@ public class ImsUt implements ImsUtInterface {
      */
     @Override
     public void queryCallForward(int condition, String number, Message result) {
-        queryCallForward(condition, number, SERVICE_CLASS_VOICE, result);
-    }
-    /**
-     * Retrieves the configuration of the call forward for specified service class.
-     * The return value of ((AsyncResult)result.obj) is an array of {@link ImsCallForwardInfo}.
-     */
-    @Override
-    public void queryCallForward(int condition, String number,
-            int serviceClass, Message result) {
         if (DBG) {
             log("queryCallForward :: Ut=" + miUt + ", condition=" + condition
-                    + ", number=" + Rlog.pii(TAG, number) + ", class=" + serviceClass);
+                    + ", number=" + Rlog.pii(TAG, number));
         }
 
         synchronized(mLockObj) {
             try {
-                int id = miUt.queryCFForServiceClass(condition, number, serviceClass);
+                int id = miUt.queryCallForward(condition, number);
 
                 if (id < 0) {
                     sendFailureReport(result,
